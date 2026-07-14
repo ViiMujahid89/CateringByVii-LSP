@@ -31,11 +31,29 @@
                 <a href="{{ route('customer.announcements.index') }}" class="navbar-link {{ request()->routeIs('customer.announcements.*') ? 'active' : '' }}">Pengumuman</a>
             </div>
             <div class="navbar-user">
-                <span class="navbar-user-name">{{ auth()->user()->name }}</span>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="navbar-logout-btn">Keluar</button>
-                </form>
+                <div class="navbar-dropdown-wrap" id="navbar-dropdown-wrap">
+                    <button class="navbar-user-btn" id="navbar-user-btn" onclick="toggleNavDropdown()" aria-haspopup="true" aria-expanded="false">
+                        <span class="navbar-user-name">{{ auth()->user()->name }}</span>
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="opacity:.6;transition:transform .2s;" id="navbar-chevron">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+
+                    <div class="navbar-dropdown" id="navbar-dropdown" role="menu">
+                        <a href="{{ route('customer.profile') }}" class="navbar-dropdown-item" role="menuitem">
+                            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            Akun Saya
+                        </a>
+                        <div class="navbar-dropdown-divider"></div>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="navbar-dropdown-item navbar-dropdown-item--danger" role="menuitem">
+                                <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                                Keluar
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -110,6 +128,27 @@
         @if(session('error'))
             Swal.fire({ icon: 'error', title: 'Gagal!', text: @json(session('error')), timer: 4000, showConfirmButton: false, toast: true, position: 'top-end' });
         @endif
+
+        /* ── Navbar User Dropdown ── */
+        function toggleNavDropdown() {
+            const wrap   = document.getElementById('navbar-dropdown-wrap');
+            const btn    = document.getElementById('navbar-user-btn');
+            const chev   = document.getElementById('navbar-chevron');
+            const isOpen = wrap.classList.toggle('open');
+            btn.setAttribute('aria-expanded', isOpen);
+            chev.style.transform = isOpen ? 'rotate(180deg)' : '';
+        }
+
+        document.addEventListener('click', function(e) {
+            const wrap = document.getElementById('navbar-dropdown-wrap');
+            if (wrap && !wrap.contains(e.target)) {
+                wrap.classList.remove('open');
+                const btn  = document.getElementById('navbar-user-btn');
+                const chev = document.getElementById('navbar-chevron');
+                if (btn)  btn.setAttribute('aria-expanded', 'false');
+                if (chev) chev.style.transform = '';
+            }
+        });
     </script>
     @yield('scripts')
 </body>

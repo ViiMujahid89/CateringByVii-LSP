@@ -53,6 +53,10 @@ Route::middleware(['auth', 'role:pelanggan'])->prefix('customer')->name('custome
     // Announcements
     Route::get('/announcements', [Customer\AnnouncementController::class, 'index'])->name('announcements.index');
     Route::get('/announcements/{announcement}', [Customer\AnnouncementController::class, 'show'])->name('announcements.show');
+
+    // Profile
+    Route::get('/profile', [Customer\ProfileController::class, 'show'])->name('profile');
+    Route::post('/profile/password', [Customer\ProfileController::class, 'updatePassword'])->name('profile.password');
 });
 
 // -----------------------------------------------------------------------
