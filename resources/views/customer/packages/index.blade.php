@@ -18,12 +18,8 @@
     </div>
 @else
     @php
-        /* Pisahkan paket berdasarkan nama:
-         * - Mengandung "Box" → kategori Paket Box
-         * - Tidak mengandung "Box" → kategori Paket Acara
-         */
-        $eventPackages = $packages->filter(fn($p) => !str_contains($p->name, 'Box'));
-        $boxPackages   = $packages->filter(fn($p) =>  str_contains($p->name, 'Box'));
+        $eventPackages = $packages->where('category', 'acara');
+        $boxPackages   = $packages->where('category', 'box');
     @endphp
 
     {{-- ── PAKET ACARA ──────────────────────────────────────── --}}

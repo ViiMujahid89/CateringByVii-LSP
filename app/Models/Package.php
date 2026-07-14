@@ -16,6 +16,7 @@ class Package extends Model
         'price',
         'image',
         'is_active',
+        'category',
     ];
 
     protected function casts(): array
@@ -35,5 +36,18 @@ class Package extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    public function scopeCategory($query, string $category)
+    {
+        return $query->where('category', $category);
+    }
+
+    public function getCategoryLabelAttribute(): string
+    {
+        return match ($this->category) {
+            'box' => 'Paket Box',
+            default => 'Paket Acara',
+        };
     }
 }

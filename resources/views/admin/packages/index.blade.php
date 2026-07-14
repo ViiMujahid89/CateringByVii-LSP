@@ -24,6 +24,7 @@
                 <tr>
                     <th>Gambar</th>
                     <th>Nama Paket</th>
+                    <th>Kategori</th>
                     <th>Harga</th>
                     <th>Status</th>
                     <th>Aksi</th>
@@ -51,6 +52,15 @@
                             <div class="text-muted" style="font-size:12px;max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                 {{ $package->description }}
                             </div>
+                        </td>
+
+                        {{-- Kategori --}}
+                        <td>
+                            @if($package->category === 'box')
+                                <span class="badge badge-info">📦 Paket Box</span>
+                            @else
+                                <span class="badge badge-secondary">🎉 Paket Acara</span>
+                            @endif
                         </td>
 
                         {{-- Harga --}}

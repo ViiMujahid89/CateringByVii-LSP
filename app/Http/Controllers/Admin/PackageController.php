@@ -31,6 +31,7 @@ class PackageController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'image' => ['nullable', 'image', 'max:2048'],
             'is_active' => ['boolean'],
+            'category' => ['required', 'in:acara,box'],
         ]);
 
         if ($request->hasFile('image')) {
@@ -58,6 +59,7 @@ class PackageController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'image' => ['nullable', 'image', 'max:2048'],
             'is_active' => ['boolean'],
+            'category' => ['required', 'in:acara,box'],
         ]);
 
         if ($request->hasFile('image')) {

@@ -45,6 +45,15 @@
             </div>
 
             <div class="form-group">
+                <label class="form-label" for="category">Kategori Paket <span style="color:#c0392b;">*</span></label>
+                <select id="category" name="category" class="form-control" required>
+                    <option value="acara" {{ old('category') === 'acara' ? 'selected' : '' }}>🎉 Paket Acara</option>
+                    <option value="box"   {{ old('category') === 'box'   ? 'selected' : '' }}>📦 Paket Box</option>
+                </select>
+                <div class="form-hint">Tentukan di seksi mana paket ini akan tampil kepada pelanggan.</div>
+            </div>
+
+            <div class="form-group">
                 <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
                     <input type="checkbox" name="is_active" value="1" checked
                         style="width:16px;height:16px;accent-color:#2C1810;">

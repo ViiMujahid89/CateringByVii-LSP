@@ -32,6 +32,15 @@
                 @error('price') <div class="form-error">{{ $message }}</div> @enderror
             </div>
 
+            <div class="form-group">
+                <label class="form-label" for="category">Kategori Paket <span style="color:#c0392b;">*</span></label>
+                <select id="category" name="category" class="form-control" required>
+                    <option value="acara" {{ old('category', $package->category) === 'acara' ? 'selected' : '' }}>🎉 Paket Acara</option>
+                    <option value="box"   {{ old('category', $package->category) === 'box'   ? 'selected' : '' }}>📦 Paket Box</option>
+                </select>
+                <div class="form-hint">Tentukan di seksi mana paket ini akan tampil kepada pelanggan.</div>
+            </div>
+
             {{-- ── Gambar ──────────────────────────────────────────── --}}
             <div class="form-group">
                 <label class="form-label" for="image">Gambar Paket</label>
