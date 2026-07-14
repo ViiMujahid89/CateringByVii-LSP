@@ -22,7 +22,7 @@ class DashboardController extends Controller
 
         $latestAnnouncements = Announcement::latest()->limit(3)->get();
 
-        $featuredPackages = Package::active()->latest()->limit(6)->get();
+        $featuredPackages = Package::active()->oldest()->get();
 
         $stats = [
             'total_orders' => Order::where('user_id', $user->id)->count(),
