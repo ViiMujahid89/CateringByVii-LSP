@@ -5,53 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Akun Menunggu Verifikasi — CateringByVii</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        /* Pending page — tambahkan custom style di sini jika perlu */
-        .pending-card { background: #fff; border: 1px solid #e8e3dc; border-radius: 12px; padding: 48px 56px; max-width: 520px; width: 90%; text-align: center; }
-        .pending-icon { width: 72px; height: 72px; background: #fef9e7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
-        .pending-icon svg { width: 36px; height: 36px; color: var(--color-accent-warm); }
-        .pending-brand { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--color-primary); margin-bottom: 20px; }
-        .pending-title { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400; color: var(--color-primary); margin-bottom: 12px; }
-        .pending-desc { font-size: 14px; color: #666; line-height: 1.75; margin-bottom: 28px; }
-        .pending-steps { background: #fafaf8; border: 1px solid #e8e3dc; border-radius: 8px; padding: 20px 24px; margin-bottom: 28px; text-align: left; }
-        .pending-steps-title { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 12px; }
-        .pending-step { display: flex; align-items: center; gap: 12px; font-size: 13px; color: #555; margin-bottom: 10px; }
-        .pending-step:last-child { margin-bottom: 0; }
-        .step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent-warm); flex-shrink: 0; }
-        .btn-back { display: inline-block; padding: 11px 24px; background: var(--color-primary); color: #fff; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: 500; }
-        .btn-back:hover { background: #4A2C1A; }
-    </style>
 </head>
-<body>
-    <div class="pending-card">
+<body class="pending-page">
+
+    <div class="pending-wrap">
+        {{-- ── Icon --}}
         <div class="pending-icon">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
         </div>
+
+        {{-- ── Brand --}}
         <div class="pending-brand">CateringByVii</div>
+
+        {{-- ── Title & desc --}}
         <h1 class="pending-title">Menunggu Verifikasi</h1>
         <p class="pending-desc">
             Terima kasih telah mendaftar! Akun Anda sedang dalam proses verifikasi oleh admin.<br>
             Anda akan dapat masuk setelah akun disetujui.
         </p>
 
+        {{-- ── Steps --}}
         <div class="pending-steps">
             <div class="pending-steps-title">Proses Selanjutnya</div>
-            <div class="pending-step"><span class="step-dot"></span> Admin akan meninjau data pendaftaran Anda</div>
-            <div class="pending-step"><span class="step-dot"></span> Anda akan mendapatkan notifikasi status akun</div>
-            <div class="pending-step"><span class="step-dot"></span> Setelah disetujui, Anda bisa login dan memesan</div>
+            <div class="pending-step">
+                <span class="pending-step-num">1</span>
+                Admin akan meninjau data pendaftaran Anda
+            </div>
+            <div class="pending-step">
+                <span class="pending-step-num">2</span>
+                Anda akan mendapatkan notifikasi status akun
+            </div>
+            <div class="pending-step">
+                <span class="pending-step-num">3</span>
+                Setelah disetujui, Anda bisa login dan memesan
+            </div>
         </div>
 
+        {{-- ── Flash message --}}
         @if(session('success'))
-            <p class="alert-flash alert-success">
+            <div class="alert-flash alert-success" style="text-align:left;">
                 {{ session('success') }}
-            </p>
+            </div>
         @endif
 
-        <a href="{{ route('login') }}" class="btn-back" id="link-back-login">Coba Masuk</a>
+        {{-- ── CTA --}}
+        <a href="{{ route('login') }}" class="btn btn-primary" id="link-back-login"
+            style="width:100%;justify-content:center;display:flex;">
+            Coba Masuk
+        </a>
+        <a href="{{ route('home') }}" class="pending-home-link">← Kembali ke Beranda</a>
     </div>
+
 </body>
 </html>

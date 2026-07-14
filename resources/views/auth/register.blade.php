@@ -7,50 +7,45 @@
     <meta name="description" content="Daftar akun baru di CateringByVii untuk memesan katering.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        /* Auth pages — tambahkan custom style di sini jika perlu */
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .section-divider { border: none; border-top: 1px solid #ece8e2; margin: 20px 0; }
-        .section-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 14px; }
-        @media (max-width: 768px) {
-            .auth-left { min-height: 40vh; flex: none !important; }
-            .auth-left-content { padding: 36px 32px !important; }
-            .auth-right { padding: 36px 24px !important; }
-            .form-row { grid-template-columns: 1fr; }
-        }
-    </style>
 </head>
-<body>
+<body class="auth-page">
+
+    {{-- ── Panel Kiri — Branding ──────────────────────────────── --}}
     <div class="auth-left">
-        <div class="auth-left-bg"></div>
+        <div class="auth-left-bg" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&auto=format&fit=crop&q=80');"></div>
         <div class="auth-left-overlay"></div>
         <div class="auth-left-content">
             <div>
-                <div class="brand-label">Chef &amp; Catering</div>
-                <div class="brand-name">CateringByVii</div>
-                <div class="brand-line"></div>
+                <div class="auth-brand-label">Chef &amp; Catering</div>
+                <div class="auth-brand-name">CateringByVii</div>
+                <div class="auth-brand-line"></div>
             </div>
             <div class="auth-tagline">
                 <h2>Bergabung &amp; Nikmati Layanan Terbaik</h2>
-                <p>Daftarkan akun Anda dan mulai pesan paket katering pilihan.</p>
-                <ul class="step-list">
-                    <li><span class="step-num">1</span> Isi form pendaftaran</li>
-                    <li><span class="step-num">2</span> Tunggu verifikasi admin</li>
-                    <li><span class="step-num">3</span> Login & pesan katering</li>
+                <p>Daftarkan akun Anda dan mulai pesan paket katering pilihan untuk setiap momen spesial.</p>
+                <ul class="auth-step-list">
+                    <li><span class="auth-step-num">1</span> Isi form pendaftaran</li>
+                    <li><span class="auth-step-num">2</span> Tunggu verifikasi admin</li>
+                    <li><span class="auth-step-num">3</span> Login &amp; pesan katering</li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="auth-right">
+    {{-- ── Panel Kanan — Form ─────────────────────────────────── --}}
+    <div class="auth-right auth-right--scroll">
         <div class="auth-form-wrap">
             <div class="auth-heading">
                 <h1>Buat Akun Baru</h1>
                 <div class="auth-divider"><span></span><span></span></div>
                 <p>Lengkapi data di bawah untuk mendaftar sebagai pelanggan.</p>
             </div>
+
+            @if($errors->any())
+                <div class="alert-flash alert-error">{{ $errors->first() }}</div>
+            @endif
 
             <form method="POST" action="{{ route('register') }}" id="form-register">
                 @csrf
@@ -69,7 +64,7 @@
                     @error('email') <div class="form-error">{{ $message }}</div> @enderror
                 </div>
 
-                <div class="form-row">
+                <div class="auth-form-row">
                     <div class="form-group">
                         <label class="form-label" for="password">Password</label>
                         <input type="password" id="password" name="password" class="form-control"
@@ -83,8 +78,9 @@
                     </div>
                 </div>
 
-                <hr class="section-divider">
-                <div class="section-label">Informasi Tambahan (Opsional)</div>
+                <div class="auth-section-divider">
+                    <span>Informasi Tambahan <em>(Opsional)</em></span>
+                </div>
 
                 <div class="form-group">
                     <label class="form-label" for="phone">Nomor Telepon</label>
@@ -95,11 +91,12 @@
 
                 <div class="form-group">
                     <label class="form-label" for="address">Alamat</label>
-                    <textarea id="address" name="address" class="form-control" placeholder="Alamat lengkap Anda">{{ old('address') }}</textarea>
+                    <textarea id="address" name="address" class="form-control"
+                        placeholder="Alamat lengkap Anda" rows="3">{{ old('address') }}</textarea>
                     @error('address') <div class="form-error">{{ $message }}</div> @enderror
                 </div>
 
-                <button type="submit" class="btn-submit" id="btn-register-submit">Daftar Sekarang</button>
+                <button type="submit" class="auth-submit-btn" id="btn-register-submit">Daftar Sekarang</button>
             </form>
 
             <div class="auth-alt">
@@ -107,5 +104,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>
