@@ -180,39 +180,41 @@
         </div>
 
         <div class="packages-slider-wrap">
-            <button class="slider-arrow slider-arrow-left" onclick="slideLeft()" aria-label="Previous">&#8249;</button>
+            <button class="slider-arrow" id="pkg-prev" onclick="pkgSlide(-1)" aria-label="Previous">&#8249;</button>
 
-            <div class="packages-track" id="packages-track">
-                @forelse($featuredPackages as $package)
-                    <div class="pkg-card">
-                        <div class="pkg-card-badge">Tersedia</div>
-                        <div class="pkg-card-img">
-                            @if($package->image)
-                                <img src="{{ asset('storage/' . $package->image) }}" alt="{{ $package->name }}">
-                            @else
-                                <div class="pkg-card-img-placeholder">
-                                    <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="#C4922A" stroke-width="1" opacity="0.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0A1.5 1.5 0 013 15.546V12a9 9 0 0118 0v3.546z"/></svg>
-                                </div>
-                            @endif
+            <div class="packages-viewport" id="packages-viewport">
+                <div class="packages-track" id="packages-track">
+                    @forelse($featuredPackages as $package)
+                        <div class="pkg-card">
+                            <div class="pkg-card-badge">Tersedia</div>
+                            <div class="pkg-card-img">
+                                @if($package->image)
+                                    <img src="{{ asset('storage/' . $package->image) }}" alt="{{ $package->name }}">
+                                @else
+                                    <div class="pkg-card-img-placeholder">
+                                        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="#C4922A" stroke-width="1" opacity="0.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0A1.5 1.5 0 013 15.546V12a9 9 0 0118 0v3.546z"/></svg>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="pkg-card-body">
+                                <div class="pkg-card-name">{{ $package->name }}</div>
+                                <div class="pkg-card-line"></div>
+                                <div class="pkg-card-price">Rp {{ number_format($package->price, 0, ',', '.') }}</div>
+                            </div>
+                            <div class="pkg-card-footer">
+                                <a href="{{ route('customer.orders.create', $package) }}"
+                                    class="pkg-order-btn" id="btn-pkg-{{ $package->id }}">
+                                    Pesan
+                                </a>
+                            </div>
                         </div>
-                        <div class="pkg-card-body">
-                            <div class="pkg-card-name">{{ $package->name }}</div>
-                            <div class="pkg-card-line"></div>
-                            <div class="pkg-card-price">Rp {{ number_format($package->price, 0, ',', '.') }}</div>
-                        </div>
-                        <div class="pkg-card-footer">
-                            <a href="{{ route('customer.orders.create', $package) }}"
-                                class="pkg-order-btn" id="btn-pkg-{{ $package->id }}">
-                                Pesan
-                            </a>
-                        </div>
-                    </div>
-                @empty
-                    <div style="padding:60px;text-align:center;color:#aaa;width:100%;">Belum ada paket tersedia.</div>
-                @endforelse
+                    @empty
+                        <div style="padding:60px;text-align:center;color:#aaa;width:100%;">Belum ada paket tersedia.</div>
+                    @endforelse
+                </div>
             </div>
 
-            <button class="slider-arrow slider-arrow-right" onclick="slideRight()" aria-label="Next">&#8250;</button>
+            <button class="slider-arrow" id="pkg-next" onclick="pkgSlide(1)" aria-label="Next">&#8250;</button>
         </div>
 
         <div style="text-align:center;margin-top:32px;">
@@ -415,26 +417,36 @@ if (heroAutoplay) {
 /* ================================================================
    PACKAGE SLIDER — Slider paket di bawah hero
    ================================================================ */
-let pkgPosition = 0;
-const pkgTrack = document.getElementById('packages-track');
+let pkgPos = 0;
+const pkgTrack    = document.getElementById('packages-track');
+const pkgViewport = document.getElementById('packages-viewport');
 
-function slideLeft() {
-    if (pkgPosition > 0) { pkgPosition--; updatePkgSlider(); }
+function getVisible() {
+    return window.innerWidth >= 1024 ? 4 : window.innerWidth >= 768 ? 2 : 1;
 }
 
-function slideRight() {
+function pkgSlide(dir) {
     const cards   = pkgTrack.querySelectorAll('.pkg-card');
-    const visible = window.innerWidth >= 1024 ? 4 : window.innerWidth >= 768 ? 2 : 1;
-    if (pkgPosition < cards.length - visible) { pkgPosition++; updatePkgSlider(); }
-}
+    const total   = cards.length;
+    const visible = getVisible();
+    const maxPos  = Math.max(0, total - visible);
 
-function updatePkgSlider() {
+    pkgPos = Math.min(Math.max(pkgPos + dir, 0), maxPos);
+
+    /* Hitung lebar satu card + gap (20px) */
     const card = pkgTrack.querySelector('.pkg-card');
     if (!card) return;
-    const cardWidth = card.offsetWidth + 20; // 20 = gap antar card
-    pkgTrack.style.transform  = `translateX(-${pkgPosition * cardWidth}px)`;
-    pkgTrack.style.transition = 'transform 0.4s ease';
-    pkgTrack.style.overflow   = 'visible';
+    const step = card.offsetWidth + 20;
+
+    pkgTrack.style.transform = `translateX(-${pkgPos * step}px)`;
+
+    /* Update state tombol */
+    document.getElementById('pkg-prev').style.opacity = pkgPos <= 0 ? '0.35' : '1';
+    document.getElementById('pkg-next').style.opacity = pkgPos >= maxPos ? '0.35' : '1';
 }
+
+/* Init state tombol */
+window.addEventListener('load', () => pkgSlide(0));
+window.addEventListener('resize', () => { pkgPos = 0; pkgSlide(0); });
 </script>
 @endsection
