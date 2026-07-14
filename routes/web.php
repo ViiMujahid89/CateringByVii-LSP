@@ -79,6 +79,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/payments/{payment}', [Admin\PaymentController::class, 'show'])->name('payments.show');
     Route::patch('/payments/{payment}/verify', [Admin\PaymentController::class, 'verify'])->name('payments.verify');
 
+    // Package Management
+    Route::resource('packages', Admin\PackageController::class)->except(['show']);
+    Route::patch('/packages/{package}/toggle', [Admin\PackageController::class, 'toggleActive'])->name('packages.toggle');
+
     // Announcements CRUD
     Route::resource('announcements', Admin\AnnouncementController::class);
 });

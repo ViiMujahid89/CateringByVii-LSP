@@ -2299,3 +2299,50 @@ textarea.form-control {
 .form-control.is-error {
     border-color: #c0392b;
 }
+
+/* ============================================================
+   PACKAGE STATUS TOGGLE (Admin)
+   ============================================================ */
+.pkg-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px 5px 8px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    transition: background 0.2s, opacity 0.2s, transform 0.15s;
+    white-space: nowrap;
+}
+
+.pkg-toggle-btn:hover { opacity: 0.82; transform: scale(0.97); }
+
+/* Dot indicator */
+.pkg-toggle-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+/* Active state — green */
+.pkg-toggle-btn--active {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+}
+
+.pkg-toggle-btn--active .pkg-toggle-dot { background: #10b981; }
+
+/* Inactive state — gray */
+.pkg-toggle-btn--inactive {
+    background: #f3f4f6;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+}
+
+.pkg-toggle-btn--inactive .pkg-toggle-dot { background: #9ca3af; }
