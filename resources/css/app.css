@@ -131,7 +131,9 @@ body {
 }
 
 /* Dropdown trigger button */
-.navbar-dropdown-wrap { position: relative; }
+.navbar-dropdown-wrap {
+    position: relative;
+}
 
 .navbar-user-btn {
     display: flex;
@@ -173,11 +175,20 @@ body {
     animation: dropdownFadeIn 0.18s ease;
 }
 
-.navbar-dropdown-wrap.open .navbar-dropdown { display: block; }
+.navbar-dropdown-wrap.open .navbar-dropdown {
+    display: block;
+}
 
 @keyframes dropdownFadeIn {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .navbar-dropdown-item {
@@ -198,10 +209,18 @@ body {
     transition: background 0.15s;
 }
 
-.navbar-dropdown-item:hover { background: #faf7f4; }
+.navbar-dropdown-item:hover {
+    background: #faf7f4;
+}
 
-.navbar-dropdown-item--danger { color: #c0392b; }
-.navbar-dropdown-item--danger:hover { background: #fdf0ef; color: #a93226; }
+.navbar-dropdown-item--danger {
+    color: #c0392b;
+}
+
+.navbar-dropdown-item--danger:hover {
+    background: #fdf0ef;
+    color: #a93226;
+}
 
 .navbar-dropdown-divider {
     height: 1px;
@@ -1897,11 +1916,16 @@ textarea.form-control {
 }
 
 @media (max-width: 900px) {
-    .profile-layout { grid-template-columns: 1fr; }
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Avatar card */
-.profile-card { text-align: center; padding: 32px 24px !important; }
+.profile-card {
+    text-align: center;
+    padding: 32px 24px !important;
+}
 
 .profile-avatar {
     width: 72px;
@@ -2005,10 +2029,21 @@ textarea.form-control {
     gap: 16px;
 }
 
-.profile-order-row:last-of-type { border-bottom: none; }
-.profile-order-row:hover { background: #faf8f5; margin: 0 -8px; padding: 13px 8px; border-radius: 6px; }
+.profile-order-row:last-of-type {
+    border-bottom: none;
+}
 
-.profile-order-left { flex: 1; min-width: 0; }
+.profile-order-row:hover {
+    background: #faf8f5;
+    margin: 0 -8px;
+    padding: 13px 8px;
+    border-radius: 6px;
+}
+
+.profile-order-left {
+    flex: 1;
+    min-width: 0;
+}
 
 .profile-order-pkg {
     font-size: 14px;
@@ -2020,7 +2055,10 @@ textarea.form-control {
     text-overflow: ellipsis;
 }
 
-.profile-order-meta { font-size: 12px; color: #aaa; }
+.profile-order-meta {
+    font-size: 12px;
+    color: #aaa;
+}
 
 .profile-order-right {
     text-align: right;
@@ -2038,4 +2076,6 @@ textarea.form-control {
 }
 
 /* form error highlight */
-.form-control.is-error { border-color: #c0392b; }
+.form-control.is-error {
+    border-color: #c0392b;
+}

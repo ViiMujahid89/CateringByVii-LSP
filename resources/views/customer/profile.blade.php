@@ -25,7 +25,7 @@
             <div class="profile-info-email">{{ $user->email }}</div>
 
             <div class="profile-status-row">
-                @if($user->status === 'active')
+                @if($user->status === 'approved')
                     <span class="badge badge-success profile-status-badge">
                         <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                         Akun Terverifikasi
