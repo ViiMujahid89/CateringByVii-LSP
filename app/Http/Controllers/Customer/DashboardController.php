@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Announcement;
 use App\Models\Order;
+use App\Models\Package;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -12,13 +13,6 @@ class DashboardController extends Controller
     public function index(): View
     {
         $user = auth()->user();
-
-        $activeOrders = Order::where('user_id', $user->id)
-            ->whereNotIn('status', ['completed', 'rejected'])
-            ->with('package')
-            ->latest()
-            ->limit(3)
-            ->get();
 
         $recentOrders = Order::where('user_id', $user->id)
             ->with('package')
@@ -28,12 +22,14 @@ class DashboardController extends Controller
 
         $latestAnnouncements = Announcement::latest()->limit(3)->get();
 
+        $featuredPackages = Package::active()->latest()->limit(6)->get();
+
         $stats = [
             'total_orders' => Order::where('user_id', $user->id)->count(),
             'active_orders' => Order::where('user_id', $user->id)->whereNotIn('status', ['completed', 'rejected'])->count(),
             'completed_orders' => Order::where('user_id', $user->id)->where('status', 'completed')->count(),
         ];
 
-        return view('customer.dashboard', compact('activeOrders', 'recentOrders', 'latestAnnouncements', 'stats'));
+        return view('customer.dashboard', compact('recentOrders', 'latestAnnouncements', 'featuredPackages', 'stats'));
     }
 }

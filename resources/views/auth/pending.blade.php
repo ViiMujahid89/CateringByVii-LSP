@@ -8,9 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        :root { --color-primary: #2C1810; --color-accent-warm: #C4922A; --font-serif: 'Playfair Display', Georgia, serif; --font-sans: 'Inter', sans-serif; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: var(--font-sans); min-height: 100vh; background: #FAFAF8; display: flex; align-items: center; justify-content: center; }
+        /* Pending page — tambahkan custom style di sini jika perlu */
         .pending-card { background: #fff; border: 1px solid #e8e3dc; border-radius: 12px; padding: 48px 56px; max-width: 520px; width: 90%; text-align: center; }
         .pending-icon { width: 72px; height: 72px; background: #fef9e7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
         .pending-icon svg { width: 36px; height: 36px; color: var(--color-accent-warm); }
@@ -48,7 +46,7 @@
         </div>
 
         @if(session('success'))
-            <p style="font-size:13px;color:#1a7a40;background:#edf7f0;border:1px solid #a8ddb8;padding:10px 14px;border-radius:6px;margin-bottom:20px;">
+            <p class="alert-flash alert-success">
                 {{ session('success') }}
             </p>
         @endif
