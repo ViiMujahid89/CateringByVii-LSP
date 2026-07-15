@@ -33,7 +33,7 @@ Sistem ini dibangun dengan arsitektur modern menggunakan kerangka kerja dan tekn
 
 - **Backend Framework:** Laravel 12 (PHP 8.2) dengan struktur arsitektur MVC (Model-View-Controller).
 - **Frontend & Styling:** Tailwind CSS v4 untuk desain responsif dan kustomisasi UI yang cepat, dipadukan dengan Blade Templating.
-- **Database:** Relasional database untuk integritas data.
+- **Database:** Relasional database untuk integritas data/MySQL
 - **Asset Bundling:** Vite 7 untuk kompilasi dan optimasi aset frontend.
 - **Testing:** Diuji menggunakan framework PestPHP v3 untuk memastikan stabilitas fitur.
 - **Interaksi UI:** SweetAlert2 v11 untuk memberikan umpan balik (feedback) visual yang menarik kepada pengguna.
