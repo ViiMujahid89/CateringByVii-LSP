@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Route;
 // Public Routes
 // -----------------------------------------------------------------------
 Route::get('/', function () {
-    return view('welcome');
+    return view('landingpage');
 })->name('home');
 
-Route::get('/landing', function () {
-    return view('landingpage');
-})->name('landing');
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
 
 // -----------------------------------------------------------------------
 // Guest-only Auth Routes

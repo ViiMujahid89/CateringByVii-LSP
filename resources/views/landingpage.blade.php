@@ -701,16 +701,8 @@
 
             <!-- Actions -->
             <div class="navbar-actions">
-                @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="btn-outline-dark">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="btn-outline-dark">Masuk</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn-dark">Daftar</a>
-                        @endif
-                    @endauth
-                @endif
+                <a href="{{ route('login') }}" class="btn-outline-dark">Masuk</a>
+                <a href="{{ route('register') }}" class="btn-dark">Daftar</a>
             </div>
         </div>
     </nav>

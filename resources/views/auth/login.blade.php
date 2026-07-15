@@ -29,7 +29,7 @@
         </div>
         <div class="auth-footer-bar">
             <span>&copy; {{ date('Y') }} CateringByVii</span>
-            <a href="{{ route('landing') }}">Kunjungi Halaman Utama &rsaquo;</a>
+            <a href="{{ route('home') }}">Kunjungi Halaman Utama &rsaquo;</a>
         </div>
     </div>
 
