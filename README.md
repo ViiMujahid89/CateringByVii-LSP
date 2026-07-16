@@ -39,25 +39,111 @@ Sistem ini dibangun dengan arsitektur modern menggunakan kerangka kerja dan tekn
 - **Interaksi UI:** SweetAlert2 v11 untuk memberikan umpan balik (feedback) visual yang menarik kepada pengguna.
 - **Manajemen File:** Memanfaatkan sistem penyimpanan lokal (Storage) Laravel.
 
-## 📋 Prasyarat Sistem
+## 📋 Spesifikasi Sistem & Dependensi
 
 Untuk dapat menjalankan sistem ini, server harus memenuhi spesifikasi minimum berikut:
-- PHP versi 8.2 atau lebih tinggi
-- Composer versi 2.x
-- Node.js versi 18.x dan NPM versi 9.x
-- Sistem Manajemen Basis Data (RDBMS) yang kompatibel
 
-## 🚀 Alur Instalasi dan Konfigurasi
+### Spesifikasi Lingkungan
+- **PHP**: Versi `8.2` atau lebih tinggi
+- **Composer**: Versi `2.x`
+- **Node.js**: Versi `18.x` atau lebih tinggi
+- **NPM**: Versi `9.x` atau lebih tinggi
+- **RDBMS**: MySQL / MariaDB (kompatibel)
 
-Demi keamanan, perintah spesifik dan kredensial lingkungan (environment) tidak disertakan di sini. Namun, langkah-langkah umum untuk menjalankan aplikasi adalah:
+### Dependensi Utama
+- **Backend Framework**: Laravel v12.x
+- **Frontend Compiler**: Vite v7.x
+- **Styling Engine**: Tailwind CSS v4.x
+- **UI Alerts / Dialogs**: SweetAlert2 v11.x
+- **Testing Framework**: PestPHP v3.x
 
-1. **Pengunduhan Repositori:** Dapatkan salinan (clone) repositori dari sumber kontrol versi.
-2. **Instalasi Dependensi:** Unduh dan pasang dependensi backend (PHP) maupun frontend (Node.js) menggunakan package manager masing-masing.
-3. **Konfigurasi Lingkungan:** Buat salinan file konfigurasi bawaan dan sesuaikan kredensial basis data serta pengaturan aplikasi lainnya.
-4. **Migrasi Basis Data:** Jalankan migrasi untuk membangun struktur tabel pada basis data, lalu isi data awal menggunakan sistem _seeding_.
-5. **Penautan Penyimpanan:** Buat tautan simbolik (symlink) untuk direktori penyimpanan agar berkas yang diunggah dapat diakses publik.
-6. **Kompilasi Aset:** Bangun aset frontend untuk mode pengembangan (development) atau produksi (production).
-7. **Menjalankan Server:** Hidupkan server pengembangan lokal untuk mengakses aplikasi.
+---
+
+## 🚀 Panduan Instalasi dan Konfigurasi
+
+Berikut adalah langkah-langkah instruksi instalasi lengkap di lingkungan lokal Anda:
+
+1. **Unduh Repositori**
+   Lakukan kloning pada repositori ini ke komputer lokal Anda:
+   ```bash
+   git clone <URL_REPOSITORI_ANDA>
+   cd CateringByVii
+   ```
+
+2. **Instal Dependensi Backend (PHP)**
+   Unduh paket pustaka PHP yang diperlukan menggunakan Composer:
+   ```bash
+   composer install
+   ```
+
+3. **Instal Dependensi Frontend (JavaScript)**
+   Unduh paket pustaka frontend menggunakan NPM:
+   ```bash
+   npm install
+   ```
+
+4. **Konfigurasi Variabel Lingkungan (.env)**
+   Salin berkas konfigurasi default bawaan Laravel:
+   ```bash
+   cp .env.example .env
+   ```
+   *Buka berkas `.env` yang baru dibuat dan sesuaikan kredensial basis data Anda pada parameter `DB_DATABASE`, `DB_USERNAME`, dan `DB_PASSWORD`.*
+
+5. **Generate Application Key**
+   Buat kunci enkripsi aplikasi yang baru:
+   ```bash
+   php artisan key:generate
+   ```
+
+6. **Migrasi Database & Seeding Data Dummy**
+   Jalankan migrasi untuk membangun struktur tabel di database sekaligus mengisi data dummy awal (termasuk akun demo dan paket katering):
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+
+7. **Penautan Direktori Penyimpanan (Storage Symlink)**
+   Hubungkan folder penyimpanan file multimedia (bukti transfer, gambar paket, dll) ke direktori publik:
+   ```bash
+   php artisan storage:link
+   ```
+
+8. **Kompilasi Aset Frontend**
+   Bangun/kompilasi berkas aset frontend untuk mode produksi:
+   ```bash
+   npm run build
+   ```
+
+9. **Jalankan Server Lokal**
+   Nyalakan server pengembangan lokal Laravel:
+   ```bash
+   php artisan serve
+   ```
+   *Aplikasi dapat diakses melalui browser pada alamat default: `http://127.0.0.1:8000`.*
+
+---
+
+## 🔑 Akun Demo Pengujian (Seeded Data)
+
+Untuk memudahkan proses pengujian dan penilaian oleh asesor, gunakan data akun pengujian bawaan berikut setelah menjalankan proses *seeding*:
+
+| Peran (Role) | Alamat Email | Kata Sandi (Password) | Status Akun | Deskripsi Uji |
+| :--- | :--- | :--- | :--- | :--- |
+| **Administrator** | `admin@cateringbyvii.com` | `password` | Aktif (Approved) | Untuk panel verifikasi akun, verifikasi pesanan, pembayaran, dan manajemen pengumuman/paket. |
+| **Pelanggan (Demo)** | `pelanggan@cateringbyvii.com` | `password` | Aktif (Approved) | Akun pelanggan aktif untuk langsung mencoba pemesanan paket katering dan melihat menu. |
+| **Pelanggan (Pending)**| `siti@example.com` | `password` | Tertunda (Pending) | Akun pelanggan baru terdaftar yang belum disetujui, dapat digunakan untuk simulasi verifikasi oleh Admin. |
+
+---
+
+## 🧪 Rangkaian Pengujian (Testing)
+
+Sistem ini diuji menggunakan framework **PestPHP v3** untuk memastikan keandalan alur transaksi. Anda dapat menjalankan seluruh pengujian otomatis dengan perintah berikut:
+
+```bash
+php artisan test --compact
+```
+
+---
+
 
 ## 📁 Struktur Direktori Utama
 
